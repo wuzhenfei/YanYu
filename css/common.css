@@ -189,10 +189,10 @@ textarea {
   background: #000;
 }
 .shareVideo header {
-  height: 45px;
+  height: 60px;
   background: #000;
   overflow: hidden;
-  padding: 5px 10px 0;
+  padding: 10px 10px 0;
   box-sizing: border-box;
 }
 .shareVideo header > div {
@@ -230,7 +230,7 @@ textarea {
 }
 .shareVideo .video {
   width: 100%;
-  height: calc(100vh - 45px);
+  height: calc(100vh - 60px);
   overflow: hidden;
   position: relative;
 }
@@ -254,7 +254,7 @@ textarea {
   right: 10px;
 }
 .shareVideo .video .video-tool > div {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: center;
 }
 .shareVideo .video .video-tool > div p {
