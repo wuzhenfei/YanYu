@@ -108,13 +108,14 @@ textarea {
   font-size: 14px;
   right: 0;
   top: 0;
-  background: url(../images/sendCode_before.png) no-repeat center;
-  background-size: cover;
-}
-.register .form-item .item-group .sendCode.active {
   background: url(../images/sendCode_after.png) no-repeat center;
   background-size: cover;
   color: #fff;
+}
+.register .form-item .item-group .sendCode.active {
+  background: url(../images/sendCode_before.png) no-repeat center;
+  background-size: cover;
+  color: #333;
 }
 .register .form-item .register-btn {
   margin-top: 25px;
@@ -123,22 +124,24 @@ textarea {
   width: 100%;
 }
 .register .tips {
+  padding: 10px;
   box-sizing: border-box;
   position: absolute;
-  width: 90%;
-  top: 10px;
-  left: 5%;
-  height: 36px;
-  line-height: 36px;
-  border-color: #faecd8;
-  color: #e6a23c;
-  padding-left: 50px;
-  background: #fdf6ec url(../images/warn.png) no-repeat 8px center;
-  background-size: 36px;
+  width: 200px;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -80px;
+  line-height: 22px;
+  color: #484848;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 6px;
+  font-size: 12px;
+  opacity: 1;
 }
 .register .tips.is-close {
-  transform: translateY(-150%);
+  opacity: 0;
   transition: all 0.3s ease-out;
 }
 .register .protocol {

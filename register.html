@@ -33,7 +33,9 @@
             </form>
             <!-- 用户协议 -->
             <div class="protocol">
-                <p>注册即代表你同意<a href="userProtocol.html">《颜语用户协议》</a></p>
+                <p>注册即代表你同意
+                    <a href="userProtocol.html">《颜语用户协议》</a>
+                </p>
             </div>
             <!-- 验证信息 -->
             <div id="tips" class="tips is-close"></div>
@@ -50,59 +52,67 @@
             return pattern.test(phone);
         }
         $(function () {
+            var phoneNum, identifyingCode, password;
             // 发送验证码
             $('.sendCode').click(function () {
-                var phoneNum = $('input[name="phone"]').val();
+                phoneNum = $('input[name="phone"]').val();
                 var mobile = 'mobile=' + phoneNum
                 // 验证手机号
-                if ($.trim(phoneNum).length == 0) {
-                    // 如果手机号为空
-                    tipStr = '手机号不能为空\n'
-                    $('#tips').removeClass('is-close').html(tipStr);
-                } else if (isPhoneNo($.trim(phoneNum)) == false) {
-                    tipStr = '手机号码输入不正确\n'
-                    $('#tips').removeClass('is-close').html(tipStr);
-                } else if($.trim(phoneNum).length != 11) {
-                    tipStr = '请输入有效手机号\n'
+                if ($.trim(phoneNum).length == 0 || isPhoneNo($.trim(phoneNum)) == false || $.trim(phoneNum).length != 11) {
+                    if ($.trim(phoneNum).length == 0) {
+                        tipStr = '手机号不能为空\n'
+                    } else if (isPhoneNo($.trim(phoneNum)) == false) {
+                        tipStr = '手机号码输入不正确\n'
+                    } else {
+                        tipStr = '请输入有效手机号\n'
+                    }
                     $('#tips').removeClass('is-close').html(tipStr);
                 } else {
+                    var count = 60;
+                    var timer = setInterval(() => {
+                        count--
+                        var codeTitle = count + 's';
+                        $('.sendCode').addClass('active').html(codeTitle);
+                        if (count == 0) {
+                            $('.sendCode').removeClass('active').html('发送验证码');
+                            clearInterval(timer)
+                        }
+                    }, 1000)
                     $.post(sendSMS, {
                         m: mobile
                     }, function (data, status) {
                         if (status == 'success') {
-                            $('.sendCode').addClass('active');
-                            $('.register-btn').click(function () {
-                                var identifyingCode = $('input[name="identifyingCode"]')
-                                    .val(),
-                                    password = $('input[name="password"]').val(),
-                                    dateInfo = 'mobile=' + phoneNum + '&password=' +
-                                    password + '&verificaCode=' + identifyingCode;
-                                if ($.trim(identifyingCode).length == 0) {
-                                    tipStr = '验证码不能为空\n'
-                                    $('#tips').removeClass('is-close').html(tipStr);
-                                } else if ($.trim(password).length == 0) {
-                                    tipStr = '密码不能为空\n'
-                                    $('#tips').removeClass('is-close').html(tipStr);
-                                } else {
-                                    $.post(regist, {
-                                    m: dateInfo
-                                    }, function (data, status) {
-                                        tipStr = data.msg
-                                        if (data.code == 0) {
-                                            
-                                        } else {
-                                            $('#tips').removeClass('is-close').html(tipStr);
-                                        }
-                                    }, 'json')
-                                }
-                            })
+
                         }
                     }, 'json')
                 }
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#tips').addClass('is-close').html('');
                 }, 1500)
-            })
+            });
+            $('.register-btn').click(function () {
+                identifyingCode = $('input[name="identifyingCode"]').val();
+                password = $('input[name="password"]').val();
+                var dateInfo = 'mobile=' + phoneNum + '&password=' +
+                    password + '&verificaCode=' + identifyingCode;
+                if ($.trim(identifyingCode).length == 0) {
+                    tipStr = '验证码不能为空\n'
+                    $('#tips').removeClass('is-close').html(tipStr);
+                } else if ($.trim(password).length == 0) {
+                    tipStr = '密码不能为空\n'
+                    $('#tips').removeClass('is-close').html(tipStr);
+                } else {
+                    $.post(regist, {
+                        m: dateInfo
+                    }, function (data, status) {
+                        tipStr = data.msg
+                        $('#tips').removeClass('is-close').html(tipStr);
+                    }, 'json')
+                }
+                setTimeout(function () {
+                    $('#tips').addClass('is-close').html('');
+                }, 1500)
+            });
         })
     </script>
 </body>
