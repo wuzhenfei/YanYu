@@ -67,7 +67,7 @@ textarea {
 .register .form-item {
   position: absolute;
   left: 0;
-  bottom: 180px;
+  bottom: 150px;
   padding: 0 10%;
 }
 .register .form-item .item-group {
@@ -148,6 +148,7 @@ textarea {
   width: 100%;
 }
 .register .protocol p {
+  font-size: 12px;
   text-align: center;
   color: #fff;
 }
@@ -185,23 +186,27 @@ textarea {
 }
 .shareVideo {
   height: 100vh;
+  background: #000;
 }
 .shareVideo header {
   height: 45px;
   background: #000;
   overflow: hidden;
   padding: 5px 10px 0;
+  box-sizing: border-box;
 }
 .shareVideo header > div {
   float: left;
 }
 .shareVideo header .logo {
-  padding-top: 8px;
+  width: 70px;
+  padding-top: 5px;
 }
 .shareVideo header .logo img {
-  width: 55px;
+  width: 70px;
 }
 .shareVideo header .tips {
+  width: 225px;
   color: #fff;
   margin-left: 10px;
 }
@@ -215,6 +220,8 @@ textarea {
   margin: 0;
 }
 .shareVideo header .open-btn {
+  width: 45px;
+  float: right;
   padding-top: 8px;
   margin-left: 5px;
 }
@@ -223,7 +230,7 @@ textarea {
 }
 .shareVideo .video {
   width: 100%;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 45px);
   overflow: hidden;
   position: relative;
 }
@@ -255,6 +262,12 @@ textarea {
 }
 .shareVideo .video .video-tool img {
   width: 35px;
+}
+.shareVideo .video .head-portrait {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
 }
 .shareVideo .video .video-name {
   bottom: 60px;
@@ -396,5 +409,14 @@ textarea {
   }
   100% {
     background-position: 0 0;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .shareVideo header .logo {
+    width: 50px;
+    padding-top: 8px;
+  }
+  .shareVideo header .logo img {
+    width: 50px;
   }
 }
