@@ -50,11 +50,6 @@
             return pattern.test(phone);
         }
         $(function () {
-            // 关闭用户协议
-            $('.btn-close').find('.btn').click(function () {
-                $('.userProtocol').addClass('is-close');
-                $('.userProtocol article').addClass('is-close');
-            });
             // 发送验证码
             $('.sendCode').click(function () {
                 var phoneNum = $('input[name="phone"]').val();
