@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>rem phone test</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/common.js"></script>
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Heiti SC', 'Microsoft YaHei';
+            font-size: 10px;
+            overflow: hidden;
+            outline: 0;
+            -webkit-text-size-adjust: none;
+            min-width: 320px;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            -webkit-user-select: none;
+            position: relative;
+        }
+
+        header,
+        footer {
+            width: 100%;
+            line-height: 1.5rem;
+            font-size: 1rem;
+            color: #000;
+            border: 1px solid #ccc;
+            text-align: center;
+            background-color: #ccc;
+        }
+
+        .bd {
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+            margin-right: -.5rem;
+            font-size: 0.5rem;
+            overflow: hidden;
+        }
+
+        .box {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: block;
+            float: left;
+        }
+
+        .blue-box {
+            background-color: #06c;
+        }
+
+        .org-box {
+            background-color: #1fc195;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>我是头部</header>
+
+
+    <div class="bd">
+        <div class="box blue-box">我们</div>
+        <div class="box org-box">都是</div>
+        <div class="box blue-box">一样</div>
+        <div class="box org-box"></div>
+        <div class="box blue-box"></div>
+        <div class="box org-box"></div>
+    </div>
+
+
+    <footer>我是页脚</footer>
+
+    <script>
+        $(function() {
+            console.log(isPhoneNo('15620231347'));
+            console.log(baseUrl);
+        })
+    </script>
+</body>
+
+</html>

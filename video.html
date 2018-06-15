@@ -22,11 +22,14 @@
                     <p>您的好友邀请您一起玩颜语</p>
                 </div>
                 <div class="open-btn">
-                    <img src="images/open-btn.png">
+                    <a href="register.html">
+                        <img src="images/open-btn.png">
+                    </a>
                 </div>
             </header>
             <div class="video" id="video">
-                <video src="" width="100%" height="100%"></video>
+                <video src="" width="100%" height="100%" webkit-playsinline x5-playsinline playsinline style="display: none"></video>
+                <img class="video-img" src="" width="100%" height="100%">
                 <div class="video-btn">
                     <img src="images/play-btn.png">
                 </div>
@@ -36,29 +39,41 @@
                         <img src="">
                     </div>
                     <div class="love">
-                        <img src="images/love.png">
-                        <p class="likeNumber"></p>
+                        <a href="register.html">
+                            <img src="images/love.png">
+                            <p class="likeNumber"></p>
+                        </a>
                     </div>
                     <div class="comment">
-                        <img src="images/comment.png">
-                        <p class="commentNumber"></p>
+                        <a href="register.html">
+                            <img src="images/comment.png">
+                            <p class="commentNumber"></p>
+                        </a>
                     </div>
                     <div class="share">
-                        <img src="images/share.png">
+                        <a href="register.html">
+                            <img src="images/share.png">
+                        </a>
                     </div>
                     <div class="gift">
-                        <img src="images/gift.png">
+                        <a href="register.html">
+                            <img src="images/gift.png">
+                        </a>
                     </div>
                 </div>
                 <!-- 姓名 -->
                 <div class="video-name">
-                    <img src="images/video-name.png">
+                    <a href="register.html">
+                        <img src="images/video-name.png">
+                    </a>
                 </div>
                 <!-- 介绍 -->
                 <div class="video-suggest"></div>
                 <!-- 与他视频 -->
                 <div class="video-video">
-                    <img src="images/video-video.png">
+                    <a href="register.html">
+                        <img src="images/video-video.png">
+                    </a>
                 </div>
             </div>
         </div>
@@ -66,10 +81,21 @@
     <script>
         var baseUrl = 'http://47.92.104.89:8081',
             videoApi = baseUrl + '/api/v1/share/shareVideo';
+        // 解析url地址参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
         $(function () {
-            // 获取数据
+            // 获取视频id
+            var videoId = getUrlParam('videoId');
+            if (!videoId) {
+                videoId = 'eaad147ee44a442aad964ebdb91a903e';
+            }
             $.post(videoApi, {
-                videoId: "2fd8b38b870941ea9ea636e54fafcfce"
+                videoId: videoId
             }, function (data, status) {
                 var dataInfo = data.obj;
                 // 头像
@@ -84,17 +110,20 @@
                 $('.video-suggest').html(dataInfo.title);
                 // 视频地址
                 $('#video video').prop("src", dataInfo.url);
+                $('#video .video-img').prop("src", dataInfo.image);
             }, 'json')
             // 点击视频按钮播放视频
-            $('.video-btn').click(function() {
+            $('.video-btn').click(function () {
                 $(this).hide();
+                $('#video .video-img').hide();
+                $('#video video').show();
                 $("#video video")[0].play();
-                $("#video video")[0].addEventListener("ended", function() {
+                $("#video video")[0].addEventListener("ended", function () {
                     $('.video-btn').show();
                 })
                 return false;
             })
-            $("#video").click(function() {
+            $("#video").click(function () {
                 $("#video video")[0].pause();
                 $('.video-btn').show();
             })

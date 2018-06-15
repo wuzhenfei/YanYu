@@ -41,24 +41,59 @@
             <div id="tips" class="tips is-close"></div>
         </div>
     </div>
+    <script src="js/des3.js"></script>
+    <script src="js/md5.js"></script>
     <script>
         var baseUrl = 'http://47.92.104.89:8081',
             sendSMS = baseUrl + '/api/v1/user/sendSMS', //发送短信api
             regist = baseUrl + '/api/v1/user/regist', //注册api
-            tipStr = ''; // 验证说明信息
+            tipStr = '', // 验证说明信息
+            key = 'Live@lsd'; //key
         // 验证手机号
         function isPhoneNo(phone) {
             var pattern = /^1[345678]\d{9}$/;
             return pattern.test(phone);
         }
+        // 解析url地址参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        function downloadApp() { 
+            var u = navigator.userAgent; 
+            var ua = navigator.userAgent.toLowerCase(); 
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
+              
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
+             
+            if (ua.match(/MicroMessenger/i) == "micromessenger") { //微信内置浏览器
+                alert('微信内置浏览器')
+                // window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=应用名 '
+            } else {  
+                if (isiOS) {         
+                    alert('isiOS');
+                } else if (isAndroid) {   
+                    alert('isAndroid')
+                } else {   
+                    alert(111) 
+                }  
+            }      
+        }
         $(function () {
             var phoneNum, identifyingCode, password;
+            // 获取邀请码
+            var invitationCode = getUrlParam('invitationCode');
             // 发送验证码
             $('.sendCode').click(function () {
                 phoneNum = $('input[name="phone"]').val();
                 var mobile = 'mobile=' + phoneNum
+                mobile = $.stringToHex($.des(key, mobile, 1, 1, key, 1));
                 // 验证手机号
-                if ($.trim(phoneNum).length == 0 || isPhoneNo($.trim(phoneNum)) == false || $.trim(phoneNum).length != 11) {
+                if ($.trim(phoneNum).length == 0 || isPhoneNo($.trim(phoneNum)) == false || $.trim(
+                        phoneNum).length != 11) {
                     if ($.trim(phoneNum).length == 0) {
                         tipStr = '手机号不能为空\n'
                     } else if (isPhoneNo($.trim(phoneNum)) == false) {
@@ -94,7 +129,9 @@
                 identifyingCode = $('input[name="identifyingCode"]').val();
                 password = $('input[name="password"]').val();
                 var dateInfo = 'mobile=' + phoneNum + '&password=' +
-                    password + '&verificaCode=' + identifyingCode;
+                    hex_md5(password) + '&verificaCode=' + identifyingCode + '&invitationCode=' +
+                    invitationCode;
+                dateInfo = $.stringToHex($.des(key, dateInfo, 1, 1, key, 1));
                 if ($.trim(identifyingCode).length == 0) {
                     tipStr = '验证码不能为空\n'
                     $('#tips').removeClass('is-close').html(tipStr);
@@ -107,6 +144,7 @@
                     }, function (data, status) {
                         tipStr = data.msg
                         $('#tips').removeClass('is-close').html(tipStr);
+                        downloadApp();
                     }, 'json')
                 }
                 setTimeout(function () {

@@ -1,0 +1,63 @@
+body {
+  font-family: Microsoft Yahei, SimSun, Helvetica;
+  font-size: 12px;
+  font-size: 1.2rem;
+  -webkit-user-select: none;
+  user-select: none;
+  -ms-touch-action: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+a,
+img {
+  -webkit-touch-callout: none;
+}
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #999;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #999;
+}
+input:focus::-webkit-input-placeholder {
+  color: #999;
+}
+input::-webkit-input-speech-button {
+  display: none;
+}
+select::-ms-expand {
+  display: none;
+}
+input[type=radio]::-ms-check,
+input[type=checkbox]::-ms-check {
+  display: none;
+}
+input[type=text]::-ms-clear,
+input[type=tel]::-ms-clear,
+input[type=number]::-ms-clear {
+  display: none;
+}
+.phoneTransform {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.phoneTransition {
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
